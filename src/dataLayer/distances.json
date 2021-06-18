@@ -1,0 +1,239 @@
+{
+  "routes": [
+    {
+      "cityA": "Kiel",
+      "cityB": "Rostock",
+      "distance": 197
+    },
+    {
+      "cityA": "Kiel",
+      "cityB": "Bremen",
+      "distance": 211
+    },
+    {
+      "cityA": "Kiel",
+      "cityB": "Hamburg",
+      "distance": 98
+    },
+    {
+      "cityA": "Bremen",
+      "cityB": "Düsseldorf",
+      "distance": 295
+    },
+    {
+      "cityA": "Bremen",
+      "cityB": "Bielefeld",
+      "distance": 193
+    },
+    {
+      "cityA": "Bremen",
+      "cityB": "Hannover",
+      "distance": 118
+    },
+    {
+      "cityA": "Bremen",
+      "cityB": "Hamburg",
+      "distance": 127
+    },
+    {
+      "cityA": "Bielefeld",
+      "cityB": "Düsseldorf",
+      "distance": 182
+    },
+    {
+      "cityA": "Bielefeld",
+      "cityB": "Hannover",
+      "distance": 106
+    },
+    {
+      "cityA": "Hamburg",
+      "cityB": "Hannover",
+      "distance": 151
+    },
+    {
+      "cityA": "Hamburg",
+      "cityB": "Rostock",
+      "distance": 182
+    },
+    {
+      "cityA": "Hannover",
+      "cityB": "Rostock",
+      "distance": 304
+    },
+    {
+      "cityA": "Hannover",
+      "cityB": "Berlin",
+      "distance": 285
+    },
+    {
+      "cityA": "Rostock",
+      "cityB": "Berlin",
+      "distance": 242
+    },
+    {
+      "cityA": "Düsseldorf",
+      "cityB": "Saarbrücken",
+      "distance": 284
+    },
+    {
+      "cityA": "Düsseldorf",
+      "cityB": "Bonn",
+      "distance": 75
+    },
+    {
+      "cityA": "Bielefeld",
+      "cityB": "Bonn",
+      "distance": 221
+    },
+    {
+      "cityA": "Bielefeld",
+      "cityB": "Göttingen",
+      "distance": 145
+    },
+    {
+      "cityA": "Hannover",
+      "cityB": "Göttingen",
+      "distance": 119
+    },
+    {
+      "cityA": "Hannover",
+      "cityB": "Erfurt",
+      "distance": 217
+    },
+    {
+      "cityA": "Hannover",
+      "cityB": "Potsdam",
+      "distance": 265
+    },
+    {
+      "cityA": "Potsdam",
+      "cityB": "Berlin",
+      "distance": 36
+    },
+    {
+      "cityA": "Dresden",
+      "cityB": "Berlin",
+      "distance": 194
+    },
+    {
+      "cityA": "Potsdam",
+      "cityB": "Dresden",
+      "distance": 203
+    },
+    {
+      "cityA": "Erfurt",
+      "cityB": "Dresden",
+      "distance": 216
+    },
+    {
+      "cityA": "Erfurt",
+      "cityB": "Göttingen",
+      "distance": 137
+    },
+    {
+      "cityA": "Göttingen",
+      "cityB": "Bonn",
+      "distance": 315
+    },
+    {
+      "cityA": "Erfurt",
+      "cityB": "Potsdam",
+      "distance": 268
+    },
+    {
+      "cityA": "Bonn",
+      "cityB": "Koblenz",
+      "distance": 61
+    },
+    {
+      "cityA": "Saarbrücken",
+      "cityB": "Koblenz",
+      "distance": 191
+    },
+    {
+      "cityA": "Saarbrücken",
+      "cityB": "Stuttgart",
+      "distance": 218
+    },
+    {
+      "cityA": "Saarbrücken",
+      "cityB": "Freiburg",
+      "distance": 208
+    },
+    {
+      "cityA": "Mannheim",
+      "cityB": "Koblenz",
+      "distance": 147
+    },
+    {
+      "cityA": "Stuttgart",
+      "cityB": "Koblenz",
+      "distance": 277
+    },
+    {
+      "cityA": "Stuttgart",
+      "cityB": "Freiburg",
+      "distance": 176
+    },
+    {
+      "cityA": "Mannheim",
+      "cityB": "Stuttgart",
+      "distance": 134
+    },
+    {
+      "cityA": "Mannheim",
+      "cityB": "Göttingen",
+      "distance": 304
+    },
+    {
+      "cityA": "Mannheim",
+      "cityB": "Erfurt",
+      "distance": 335
+    },
+    {
+      "cityA": "Mannheim",
+      "cityB": "Dresden",
+      "distance": 539
+    },
+    {
+      "cityA": "Mannheim",
+      "cityB": "Nürnberg",
+      "distance": 241
+    },
+    {
+      "cityA": "Dresden",
+      "cityB": "Nürnberg",
+      "distance": 311
+    },
+    {
+      "cityA": "Dresden",
+      "cityB": "München",
+      "distance": 459
+    },
+    {
+      "cityA": "Nürnberg",
+      "cityB": "Stuttgart",
+      "distance": 203
+    },
+    {
+      "cityA": "Stuttgart",
+      "cityB": "Freiburg",
+      "distance": 171
+    },
+    {
+      "cityA": "Stuttgart",
+      "cityB": "München",
+      "distance": 232
+    },
+    {
+      "cityA": "Freiburg",
+      "cityB": "München",
+      "distance": 354
+    },
+    {
+      "cityA": "Nürnberg",
+      "cityB": "München",
+      "distance": 169
+    }
+  ]
+}
