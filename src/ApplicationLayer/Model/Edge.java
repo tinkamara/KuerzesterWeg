@@ -4,10 +4,10 @@ import java.util.ArrayList;
 
 public class Edge {
 
-    private Node cityA;
-    private Node cityB;
-    private int distance;
-    private static ArrayList<Edge> existingEdges;
+    private final Node cityA;
+    private final Node cityB;
+    private final int distance;
+    private static ArrayList<Edge> existingEdges = new ArrayList<Edge>();
 
 
     public Edge( String cityA, String cityB, int distance){
@@ -16,7 +16,7 @@ public class Edge {
         this.cityB = Node.getNode( cityB );
         existingEdges.add( this );
     }
-    public static ArrayList getExistingEdges(){
+    public static ArrayList<Edge> getExistingEdges(){
         return existingEdges;
     }
 

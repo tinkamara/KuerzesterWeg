@@ -6,7 +6,7 @@ public class Node {
     private String city;
     private Node predecessor;
     private int distance;
-    private static ArrayList<Node> existingNodes;
+    private static ArrayList<Node> existingNodes = new ArrayList<>();
 
     private Node( String city ){
     this.city = city;
@@ -14,18 +14,21 @@ public class Node {
     this.distance = -1;
     existingNodes.add(this);
     }
-    public String getName(){
-        return this.city;
-    }
-    public static Node getNode( String city ) {
+
+
+    public static Node getNode(String city ) {
+        Node retNode = null;
+
         for (Node exists : existingNodes) {
-            if (city == exists.getName()) {
-                return exists;
+            if (city.equals(exists.getCity())) {
+                retNode = exists;
             }
         }
-        Node newNode = new Node( city );
-        existingNodes.add(newNode);
-        return newNode;
+        if (retNode == null) {
+            retNode = new Node(city);
+        }
+            return retNode;
+
     }
 
     public static ArrayList getExistingNodes(){
