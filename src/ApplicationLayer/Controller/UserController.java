@@ -1,14 +1,18 @@
 package ApplicationLayer.Controller;
 
-import ApplicationLayer.Model.Dijkstra;
+import ApplicationLayer.Model.Graph;
+import ApplicationLayer.Model.Path;
 import ApplicationLayer.view.UserInterface;
 import DataAccessLayer.NoDataFound;
 
-public class UserController {
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class UserController implements ActionListener {
     private NoDataFound noDataFound;
 
     public UserController(){
-    Dijkstra calculatedPath = new Dijkstra( "München", "Hannover");
+    Path calculatedPath = new Path( "Kiel", "Bonn");
         System.out.println(calculatedPath.getTotalDistance());
         for(String node : calculatedPath.getPath()){
             System.out.println(node);
@@ -20,11 +24,16 @@ public class UserController {
     }
 
     public void startApplication() {
-        UserInterface userInterface = new UserInterface();
-    }
-    public void atDestChange(){
-      //  Path shortestPath = new Path (start, destination);
+        if(this.noDataFound == null) {
+            UserInterface userInterface = new UserInterface(Graph.getExistingNodes());
+        }else{
+            UserInterface userInterface = new UserInterface(noDataFound.getMessage());
         }
+    }
 
 
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+    }
 }

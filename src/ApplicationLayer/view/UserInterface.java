@@ -1,33 +1,23 @@
 package ApplicationLayer.view;
 
-import javax.swing.*;
+import java.util.ArrayList;
 
 public class UserInterface {
-    private JButton berechnenButton;
-    private JTextArea messages;
-    private JComboBox chooseStart;
-    private JComboBox chooseDest;
-    private JTextPane start;
-    private JTextPane ziel;
-    private JTextPane routetext;
-    private JScrollPane routeshow;
-    private JTextField distance;
+    private String error;
+    private ArrayList<String> cities;
 
 
 
-    public UserInterface() {
+    public UserInterface( ArrayList<String> cities) {
+        this.cities = cities;
+        this.init();
+    }
+    public UserInterface( String error){
+        this.error = error;
         this.init();
     }
 
     private void init() {
-        berechnenButton = new JButton();
-        messages = new JTextArea();
-        chooseStart = new JComboBox<String>();
-        chooseDest = new JComboBox<String>();
-        start = new JTextPane();
-        ziel = new JTextPane();
-        routetext = new JTextPane();
-        routeshow = new JScrollPane();
-        distance = new JTextField();
+
     }
 }
