@@ -35,6 +35,7 @@ public class Dijkstra {
         }
         this.start.setDistance(0);
         this.start.setPredecessor(null);
+        this.start.updateDistanceToStart(0);
         emptyNodes.remove(this.start);
     }
 
@@ -43,26 +44,33 @@ public class Dijkstra {
         int minimalDistance = MAX_VALUE;
         Node closest = null;
 
+
         TreeMap<Node, Integer> currentNeighbors = start.getNeighbors();
 
         Collection<Map.Entry<Node, Integer>> c = currentNeighbors.entrySet();
 
         for (Map.Entry<Node, Integer> neighbor : c) {
+            minimalDistance = MAX_VALUE;
+            closest = null;
             if (emptyNodes.contains(neighbor.getKey())) {
                 neighbor.getKey().setPredecessor(start);
                 neighbor.getKey().setDistance(neighbor.getValue());
+                neighbor.getKey().updateDistanceToStart(totalDistance + neighbor.getValue());
+                System.out.println(neighbor.getKey().getCity());
                 if (neighbor.getValue() < minimalDistance) {
                     closest = neighbor.getKey();
                     minimalDistance = neighbor.getValue();
                 }
                 emptyNodes.remove(neighbor.getKey());
-            } else if (neighbor.getValue() + this.totalDistance < neighbor.getKey().getDistance()) {
+            } else if (neighbor.getKey().getDistanceToStart() > neighbor.getValue() + this.totalDistance) {
                 neighbor.getKey().setPredecessor(start);
                 neighbor.getKey().setDistance(neighbor.getValue());
+                neighbor.getKey().updateDistanceToStart(totalDistance + neighbor.getValue());
                 if (neighbor.getValue() < minimalDistance) {
                     closest = neighbor.getKey();
                     minimalDistance = neighbor.getValue();
                 }
+
             }
         }
         totalDistance = totalDistance + minimalDistance;

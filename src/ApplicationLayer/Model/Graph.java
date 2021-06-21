@@ -15,6 +15,8 @@ public class Graph {
             JSONObject jLine = (JSONObject) line;
             Edge edge = new Edge((String) jLine.get("cityA"), (String) jLine.get("cityB"), (int) (long) jLine.get("distance"));
             existingEdges.add(edge);
+            edge = new Edge((String) jLine.get("cityB"), (String) jLine.get("cityA"), (int) (long) jLine.get("distance"));
+            existingEdges.add(edge);
         }
         existingNodes = Node.getExistingNodes();
 
@@ -22,8 +24,6 @@ public class Graph {
             for (Edge edge : existingEdges){
                 if (edge.getCityA().equals(node)) {
                     node.addNeighbor(edge.getCityB(), edge.getDistance());
-                } else if(edge.getCityB().equals(node)){
-                    node.addNeighbor(edge.getCityA(), edge.getDistance());
                 }
             }
 
@@ -34,8 +34,12 @@ public class Graph {
         return existingEdges;
     }
 
-    public static ArrayList<Node> getExistingNodes() {
-        return existingNodes;
+    public static ArrayList<String> getExistingNodes() {
+        ArrayList<String> cities = new ArrayList<>();
+        for( Node node : existingNodes){
+            cities.add(node.getCity());
+        }
+        return cities;
     }
 }
 
