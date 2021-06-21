@@ -22,8 +22,8 @@ public class UserInterface {
     private void init() {
         berechnenButton = new JButton();
         messages = new JTextArea();
-        chooseStart = new JComboBox();
-        chooseDest = new JComboBox();
+        chooseStart = new JComboBox<String>();
+        chooseDest = new JComboBox<String>();
         start = new JTextPane();
         ziel = new JTextPane();
         routetext = new JTextPane();
