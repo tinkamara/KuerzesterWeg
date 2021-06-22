@@ -3,11 +3,12 @@ package ApplicationLayer.Model;
 import java.util.ArrayList;
 import java.util.PriorityQueue;
 
+import static java.lang.Integer.MAX_VALUE;
+
 public class Path {
-    private Node start;
+    private final Node start;
     private Node destination;
-    private ArrayList<Node> nodes;
-    private ArrayList<Edge> edges;
+    private final ArrayList<Node> nodes;
     private PriorityQueue<Node> priorityQueue;
     private int totalDistance = 0;
 
@@ -15,26 +16,26 @@ public class Path {
         this.start = Node.getNode(start);
         this.destination = Node.getNode(destination);
         this.nodes = Node.getExistingNodes();
-        this.edges = Graph.getExistingEdges();
         this.initialize();
 
         while (!priorityQueue.isEmpty()) {
             Node node = priorityQueue.poll();
-            System.out.println(node.getCity());
+            priorityQueue.remove(node);
             if (node.isUsed()) {
                 continue;
             }
             node.setUsed(true);
-            for (Edge edge : edges) {
+
+            for (Edge edge : Graph.getExistingEdges()) {
                 if (node.equals(edge.getCityA())) {
                     Node neighbor = edge.getCityB();
-                   // int distanceToNeighbor = edge.getDistance();
-                    if (node.getDistanceToStart() > edge.getDistance() + totalDistance || true ) {
-                        neighbor.updateDistanceToStart(edge.getDistance() + totalDistance);
+                    if (neighbor.getDistanceToStart() == MAX_VALUE || neighbor.getDistanceToStart() > (edge.getDistance() + node.getDistanceToStart())) {
+
                         neighbor.setPredecessor(node);
-                        totalDistance = totalDistance + node.getDistance();
-                        System.out.println(neighbor.getPredecessor().getCity());
+                        neighbor.updateDistanceToStart(edge.getDistance() + node.getDistanceToStart());
+                        totalDistance = neighbor.getDistanceToStart();
                         priorityQueue.add(neighbor);
+
                     }
                 }
             }
@@ -45,7 +46,6 @@ public class Path {
         for (Node node : this.nodes) {
             node.resetNode();
         }
-        this.start.setDistance(0);
         this.start.setPredecessor(null);
         this.start.updateDistanceToStart(0);
         priorityQueue = new PriorityQueue<>();

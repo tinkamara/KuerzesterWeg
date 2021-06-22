@@ -1,4 +1,4 @@
-package ApplicationLayer.view;
+package ApplicationLayer.View;
 
 import java.util.ArrayList;
 

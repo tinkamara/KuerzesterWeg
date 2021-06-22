@@ -14,10 +14,12 @@ public class Edge {
     }
 
     public Node getCityA() {
+
         return this.cityA;
     }
 
     public Node getCityB() {
+
         return this.cityB;
     }
 
