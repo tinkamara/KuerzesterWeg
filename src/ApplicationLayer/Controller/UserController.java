@@ -10,13 +10,10 @@ import java.awt.event.ActionListener;
 
 public class UserController implements ActionListener {
     private NoDataFound noDataFound;
+    private UserInterface userInterface;
 
     public UserController(){
-    Path calculatedPath = new Path( "Rostock", "Bonn");
-        System.out.println(calculatedPath.getTotalDistance());
-        for(String node : calculatedPath.getPath()){
-            System.out.println(node);
-        }
+
     }
 
     public UserController(NoDataFound noDataFound){
@@ -24,16 +21,23 @@ public class UserController implements ActionListener {
     }
 
     public void startApplication() {
-        if(this.noDataFound == null) {
-            UserInterface userInterface = new UserInterface(Graph.getCities());
-        }else{
-            UserInterface userInterface = new UserInterface(noDataFound.getMessage());
+        if (this.noDataFound == null) {
+            this.userInterface = new UserInterface(Graph.getCities(), this);
+            new Path(Graph.getCities().get(0), Graph.getCities().get(0), userInterface);
+
+
+        } else {
+            this.userInterface = new UserInterface(noDataFound.getMessage());
         }
     }
 
 
+
+
+
     @Override
     public void actionPerformed(ActionEvent e) {
+        new Path(userInterface.getSelectedStart(), userInterface.getSelectedDestination(), userInterface);
 
     }
 }

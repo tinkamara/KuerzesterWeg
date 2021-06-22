@@ -13,7 +13,6 @@ public class Node implements  Comparable{
     private int distanceToStart = MAX_VALUE;
     private boolean used = false;
 
-
     private Node( String city ){
     this.city = city;
     this.predecessor = null;
