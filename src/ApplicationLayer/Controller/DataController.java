@@ -7,10 +7,10 @@ import org.json.simple.JSONArray;
 
 public class DataController {
 
-    private JSONArray mapData;
+    private final JSONArray mapData;
 
     public DataController() throws NoDataFound{
-        this.mapData = MapData.readDB();
+        this.mapData = MapData.read();
         Graph.init(mapData);
     }
 

@@ -10,7 +10,7 @@ public class Graph {
     private static  ArrayList<Node> existingNodes;
 
     public static void init(JSONArray mapData){
-        existingEdges = new ArrayList<Edge>();
+        existingEdges = new ArrayList<>();
         for ( Object line : mapData) {
             JSONObject jLine = (JSONObject) line;
             Edge edge = new Edge((String) jLine.get("cityA"), (String) jLine.get("cityB"), (int) (long) jLine.get("distance"));
@@ -20,21 +20,15 @@ public class Graph {
         }
         existingNodes = Node.getExistingNodes();
 
-        for( Node node : existingNodes){
-            for (Edge edge : existingEdges){
-                if (edge.getCityA().equals(node)) {
-                    node.addNeighbor(edge.getCityB(), edge.getDistance());
-                }
-            }
 
-        }
     }
 
     public static ArrayList<Edge> getExistingEdges() {
+
         return existingEdges;
     }
 
-    public static ArrayList<String> getExistingNodes() {
+    public static ArrayList<String> getCities() {
         ArrayList<String> cities = new ArrayList<>();
         for( Node node : existingNodes){
             cities.add(node.getCity());
