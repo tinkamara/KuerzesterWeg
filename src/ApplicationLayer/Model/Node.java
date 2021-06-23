@@ -1,6 +1,6 @@
 package ApplicationLayer.Model;
 
-import org.jetbrains.annotations.NotNull;
+//import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
@@ -82,7 +82,7 @@ public class Node implements  Comparable{
     }
 
     @Override
-     public int compareTo(@NotNull Object o) {
+    public int compareTo(@NotNull Object o) {
        return 1;
     }
 }
