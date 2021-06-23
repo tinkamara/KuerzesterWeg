@@ -29,6 +29,8 @@ public class UserInterface {
 
     //at destination/start change
     // controller.actionPerformed(event);
+
+
     public void updateDistance(int distance){
 
     }

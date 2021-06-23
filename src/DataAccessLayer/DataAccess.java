@@ -6,16 +6,14 @@ import org.json.simple.parser.JSONParser;
 
 import java.io.FileReader;
 
-public class MapData{
-    static JSONArray mapArray;
+public class DataAccess {
 
     public static JSONArray read() throws NoDataFound {
         try {
             JSONParser parser = new JSONParser();
             Object file = parser.parse(new FileReader("src/Database/distances.json"));
             JSONObject jsonObject = (JSONObject) file;
-            mapArray = (JSONArray) jsonObject.get("routes");
-            return mapArray;
+            return  (JSONArray) jsonObject.get("routes");
         } catch (
                 Exception ex) {
             throw new NoDataFound();
