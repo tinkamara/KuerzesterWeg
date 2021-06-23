@@ -1,12 +1,10 @@
 package ApplicationLayer.Model;
 
-//import org.jetbrains.annotations.NotNull;
-
 import java.util.ArrayList;
 
 import static java.lang.Integer.MAX_VALUE;
 
-public class Node implements  Comparable{
+public class Node {
     private final String city;
     private Node predecessor;
     private final static ArrayList<Node> existingNodes = new ArrayList<>();
@@ -81,8 +79,4 @@ public class Node implements  Comparable{
         this.used = used;
     }
 
-    @Override
-    public int compareTo(@NotNull Object o) {
-       return 1;
-    }
 }

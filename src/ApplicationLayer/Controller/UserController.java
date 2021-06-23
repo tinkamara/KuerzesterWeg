@@ -17,6 +17,7 @@ public class UserController implements ActionListener {
     }
 
     public UserController(NoDataFound noDataFound){
+
         this.noDataFound = noDataFound;
     }
 
@@ -24,8 +25,6 @@ public class UserController implements ActionListener {
         if (this.noDataFound == null) {
             this.userInterface = new UserInterface(Graph.getCities(), this);
             new Path(Graph.getCities().get(0), Graph.getCities().get(0), userInterface);
-
-
         } else {
             this.userInterface = new UserInterface(noDataFound.getMessage());
         }
