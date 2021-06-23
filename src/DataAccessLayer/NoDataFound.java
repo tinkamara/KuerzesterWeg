@@ -12,7 +12,6 @@ public class NoDataFound extends Throwable{
 
     @Override
     public String getMessage() {
-
         return this.message;
     }
 

@@ -3,7 +3,6 @@ package ApplicationLayer.Model;
 import ApplicationLayer.View.UserInterface;
 
 import java.util.ArrayList;
-import java.util.PriorityQueue;
 
 import static java.lang.Integer.MAX_VALUE;
 
@@ -11,20 +10,17 @@ public class Path {
     private final Node start;
     private Node destination;
     private final ArrayList<Node> nodes;
-    private PriorityQueue<Node> priorityQueue;
-    private int totalDistance;
-    private UserInterface userInterface;
+    private ArrayList<Node> remainingNodes;
 
     public Path(String start, String destination, UserInterface userInterface) {
-        this.userInterface = userInterface;
         this.start = Node.getNode(start);
         this.destination = Node.getNode(destination);
         this.nodes = Node.getExistingNodes();
         this.initialize();
 
-        while (!priorityQueue.isEmpty()) {
-            Node node = priorityQueue.poll();
-            priorityQueue.remove(node);
+        while (!remainingNodes.isEmpty()) {
+            Node node = remainingNodes.get(0);
+            remainingNodes.remove(node);
             if (node.isUsed()) {
                 continue;
             }
@@ -32,7 +28,12 @@ public class Path {
             this.setNextNeighbor(node);
         }
         userInterface.updateDistance(this.destination.getDistanceToStart());
-        userInterface.updatePath(this.calcPath());
+        System.out.println(this.destination.getDistanceToStart());
+        //userInterface.updatePath
+        for(String string: this.calcPath()){
+            System.out.println(string);
+        }
+
     }
 
     public void initialize() {
@@ -41,8 +42,8 @@ public class Path {
         }
         this.start.setPredecessor(null);
         this.start.updateDistanceToStart(0);
-        priorityQueue = new PriorityQueue<>();
-        priorityQueue.add(this.start);
+        remainingNodes = new ArrayList<>();
+        remainingNodes.add(this.start);
     }
 
     public void setNextNeighbor(Node node){
@@ -53,16 +54,14 @@ public class Path {
 
                     neighbor.setPredecessor(node);
                     neighbor.updateDistanceToStart((edge.getDistance() + node.getDistanceToStart()));
-                    priorityQueue.add(neighbor);
+                    remainingNodes.add(neighbor);
 
                 }
             }
         }
     }
 
-    public int getTotalDistance() {
-        return totalDistance;
-    }
+
 
     public ArrayList<String> calcPath() {
         ArrayList<String> path = new ArrayList<>();
