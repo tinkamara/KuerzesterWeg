@@ -3,6 +3,10 @@ package ApplicationLayer.View;
 import ApplicationLayer.Controller.UserController;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.util.ArrayList;
 
 /*import javafx.scene.layout.VBox;
@@ -26,27 +30,27 @@ public class UserInterface {
 
     //Elemente des UI.form:
     private JPanel panelMain = new JPanel();
-    private JTextPane willkommenWillkommenTextPane;
+    private JTextPane OrtStartTextPane;
     private JComboBox comboBox1;
     private JButton button1;
+    private JComboBox comboBox2;
+    private JTextPane OrtZielTextPane;
+    private JTextPane DistanceTextPane;
+    private JTextPane PathTextPane;
+    private JTextPane DistanzTextPane;
 
-    //Beispielliste:
-   // private static final ArrayList<String> stringCities = {"Stadt A", "Stadt B", "Stadt C"};
-
-    //Code, der in eigenem Projekt funktioniert, hier aber nicht:
-    public void userInterface() {
-
-    }
-
-   // public void  main(String[] args) {
-     //   JFrame frame = new JFrame("GUI");
-
-    //Ende meines hinzugefügten Codes
+    private int mouse = 13;
 
     public UserInterface( ArrayList<String> cities, UserController controller) {
         this.controller = controller;
         this.cities = cities;
         this.init();
+        comboBox2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //soll bei Änderung der Werte in ComboBox das Textfeld triggern
+            }
+        });
     }
 
 
@@ -56,25 +60,37 @@ public class UserInterface {
     }
 
     private void init(){
-
-        button1.addActionListener(e -> JOptionPane.showMessageDialog(null, "Ich bin ein Looser"));
-        button1.setVisible(true);
+        //button1.addActionListener(e -> JOptionPane.showMessageDialog(null, "Ich bin ein Looser"));
+        //button1.setVisible(true);
         comboBox1.setVisible(true);
-        panelMain.add(button1);
+        //panelMain.add(button1);
+        panelMain.add(OrtStartTextPane);
         panelMain.add(comboBox1);
+        panelMain.add(OrtZielTextPane);
+        panelMain.add(comboBox2);
+        panelMain.add(DistanzTextPane);
+        panelMain.add(DistanceTextPane);
+        panelMain.add(PathTextPane);
 
-
-        for (String elem:cities
-        ) {comboBox1.addItem(elem);
+        for (String elem:cities) {
+            comboBox1.addItem(elem);
+            comboBox2.addItem(elem);
         }
 
-        JFrame frame = new JFrame("Gui");
+        String s = String.valueOf(mouse);
+        DistanceTextPane.setText(s);
+
+        String listString = "";
+        for (String el : cities){
+            listString = listString + el + "\n";
+        }
+        PathTextPane.setText(listString);
+
+        JFrame frame = new JFrame("Streckenberechnung");
         frame.setContentPane(this.panelMain);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
-
-
     }
 
     //at destination/start change
