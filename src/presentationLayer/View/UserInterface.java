@@ -77,7 +77,7 @@ public class UserInterface {
 
         String pathShown = null;
         if (path.size() <= 1){
-            PathTextPane.setText("Wählen Sie \nStartpunkt und Ziel");
+            PathTextPane.setText("Wähle Startpunkt und Ziel!");
         }else {
             for (String city : path) {
                 if (pathShown == null){

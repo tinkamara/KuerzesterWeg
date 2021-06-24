@@ -9,6 +9,7 @@ public class Node implements Cloneable {
     private Node predecessor;
     private final static ArrayList<Node> existingNodes = new ArrayList<>();
     private int distanceToStart = MAX_VALUE;
+    private int distanceToNeighbor = MAX_VALUE;
     private boolean used = false;
 
     private Node( String city ){
@@ -82,5 +83,13 @@ public class Node implements Cloneable {
 
     protected Node clone(Node node) {
         return new Node(node);
+    }
+
+    public int getDistanceToNeighbor() {
+        return distanceToNeighbor;
+    }
+
+    public void setDistanceToNeighbor(int distanceToNeighbor) {
+        this.distanceToNeighbor = distanceToNeighbor;
     }
 }

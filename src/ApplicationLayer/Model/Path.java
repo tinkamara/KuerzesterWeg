@@ -66,6 +66,7 @@ public class Path {
                 if (neighbor.getDistanceToStart() == MAX_VALUE || neighbor.getDistanceToStart() > (clonedEdge.getDistance() + node.getDistanceToStart())) {
 
                     neighbor.setPredecessor(node);
+                    neighbor.setDistanceToNeighbor(clonedEdge.getDistance());
                     neighbor.updateDistanceToStart((clonedEdge.getDistance() + node.getDistanceToStart()));
                     remainingNodes.add(neighbor);
 
@@ -78,8 +79,10 @@ public class Path {
 
     public ArrayList<String> calcPath() {
         ArrayList<String> path = new ArrayList<>();
+      //  path.add(0,"Von");
         while (this.destination.getPredecessor() != null) {
             path.add(0, this.destination.getCity());
+            path.add(0, "<< " + this.destination.getDistanceToNeighbor() + " km bis >>");
             this.destination = this.destination.getPredecessor();
         }
         path.add(0, this.destination.getCity());

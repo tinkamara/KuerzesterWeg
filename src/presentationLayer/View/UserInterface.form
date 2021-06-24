@@ -6,38 +6,37 @@
       <xy x="135" y="105" width="660" height="544"/>
     </constraints>
     <properties/>
-    <border type="bevel-raised" title="Starten Sie Ihren Roadtrip!" title-justification="2" title-position="3">
-      <font name="Arial" size="14" style="3"/>
+    <border type="bevel-raised" title="Starte deinen Roadtrip!" title-justification="2" title-position="3">
+      <font name="Arial Narrow" size="20" style="3"/>
       <title-color color="-11447983"/>
     </border>
     <children>
       <component id="8df31" class="javax.swing.JLabel" binding="distanceLabel">
         <constraints>
-          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="0" anchor="5" fill="0" indent="0" use-parent-layout="false">
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false">
             <minimum-size width="150" height="50"/>
             <preferred-size width="150" height="50"/>
             <maximum-size width="150" height="50"/>
           </grid>
         </constraints>
         <properties>
-          <font name="Arial" size="16" style="1"/>
+          <font name="Arial" size="20" style="1"/>
           <foreground color="-11447983"/>
           <horizontalAlignment value="4"/>
           <horizontalTextPosition value="0"/>
-          <text value="Distanz:"/>
-          <toolTipText value="Ihre kürzeste Entfernung zum Ziel"/>
+          <text value="Gesamtdistanz:"/>
         </properties>
       </component>
       <component id="78509" class="javax.swing.JLabel" binding="distanceValueLabel">
         <constraints>
-          <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="0" anchor="9" fill="0" indent="0" use-parent-layout="false">
+          <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
             <minimum-size width="150" height="50"/>
             <preferred-size width="150" height="50"/>
             <maximum-size width="150" height="50"/>
           </grid>
         </constraints>
         <properties>
-          <font name="Arial Black" size="16" style="1"/>
+          <font name="Arial Black" size="22" style="1"/>
           <foreground color="-11447983"/>
           <horizontalAlignment value="2"/>
           <horizontalTextPosition value="0"/>
@@ -58,7 +57,6 @@
           <horizontalTextPosition value="0"/>
           <labelFor value="d60c7"/>
           <text value="Startpunkt"/>
-          <toolTipText value="Wählen Sie Ihren Startpunkt"/>
           <verticalAlignment value="0"/>
         </properties>
       </component>
@@ -76,7 +74,6 @@
           <horizontalTextPosition value="0"/>
           <labelFor value="f34d7"/>
           <text value="Ziel"/>
-          <toolTipText value="Wählen Sie Ihr Ziel"/>
         </properties>
       </component>
       <component id="f34d7" class="javax.swing.JComboBox" binding="destinationComboBox">
@@ -109,7 +106,7 @@
       <scrollpane id="937c8" binding="pathScrollPane">
         <constraints>
           <grid row="1" column="2" row-span="2" col-span="1" vsize-policy="7" hsize-policy="7" anchor="9" fill="0" indent="0" use-parent-layout="false">
-            <minimum-size width="200" height="100"/>
+            <minimum-size width="200" height="200"/>
             <preferred-size width="200" height="-1"/>
             <maximum-size width="200" height="-1"/>
           </grid>
@@ -120,6 +117,7 @@
           <component id="9c7b3" class="javax.swing.JTextPane" binding="PathTextPane">
             <constraints/>
             <properties>
+              <background color="-986881"/>
               <editable value="false"/>
               <font name="Arial" size="18" style="1"/>
               <foreground color="-11447983"/>
