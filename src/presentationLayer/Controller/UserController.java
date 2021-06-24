@@ -35,13 +35,15 @@ public class UserController implements ActionListener {
     }
 
 
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent cityChanged) {
         this.path = new Path(userInterface.getSelectedStart(), userInterface.getSelectedDestination(), userInterface);
 
     }
     public void savePath(File file){
-        try {
-            FileWriter writer = new FileWriter(file);
+        try{
+        File checkedFile = checkFileName(file);
+
+            FileWriter writer = new FileWriter(checkedFile);
             int i = 0;
             writer.write("Distanz;Ort;\nStart;");
             for(String routePoint : path.calcPath()) {
@@ -53,12 +55,22 @@ public class UserController implements ActionListener {
                     writer.write(routePoint + ";\n");
                 }
             }
-            writer.write("Gesamtstrecke;"+path.getTotalDistance()+" km;");
+            writer.write("\nGesamtstrecke;"+path.getTotalDistance()+" km;");
             writer.close();
         } catch (IOException notFound) {
             userInterface.showError(notFound.getMessage());
         }
+    }
 
-
+    @SuppressWarnings("ResultOfMethodCallIgnored")
+    public File checkFileName(File file) throws IOException {
+        if(file.getName().toLowerCase().endsWith(".csv")){
+            return file;
+        } else{
+            File newFile = new File(file.getAbsolutePath() + ".csv");
+            newFile.createNewFile();
+            file.delete();
+            return newFile;
+        }
     }
 }
