@@ -9,7 +9,7 @@ public class DataController {
 
 
     public DataController() throws NoDataFound{
-        Graph.init(DataAccess.read());
+        Graph.init(DataAccess.read("routes"));
     }
 
 }
