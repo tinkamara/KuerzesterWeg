@@ -30,6 +30,7 @@ public class Edge {
     }
 
     public int getDistance() {
+
         return this.distance;
     }
 

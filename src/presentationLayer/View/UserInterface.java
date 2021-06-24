@@ -1,25 +1,12 @@
-package ApplicationLayer.View;
+package presentationLayer.View;
 
-import ApplicationLayer.Controller.UserController;
+import presentationLayer.Controller.UserController;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 import java.util.ArrayList;
 
-/*import javafx.scene.layout.VBox;
-
-//neue Imports
-import javafx.application.Application;
-import javafx.geometry.Insets;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.stage.Stage;
-
- */
 
 public class UserInterface {
     private String error;
@@ -27,9 +14,8 @@ public class UserInterface {
     private String selectedStart;
     private String selectedDestination;
     private UserController controller;
-
     //Elemente des UI.form:
-    //private JPanel panelMain = new JPanel();
+
     private JPanel panelMain;
     private JTextPane OrtStartTextPane;
     private JComboBox comboBox1;
@@ -39,54 +25,46 @@ public class UserInterface {
     private JTextPane DistanceTextPane;
     private JTextPane PathTextPane;
 
-    private int mouse = 13;
-
     public UserInterface( ArrayList<String> cities, UserController controller) {
         this.controller = controller;
         this.cities = cities;
         this.init();
+        this.selectedStart = (String) comboBox1.getSelectedItem();
+        this.selectedDestination = (String) comboBox2.getSelectedItem();
 
         comboBox2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //soll bei Änderung der Werte in ComboBox das Textfeld triggern
+                selectedDestination = (String) comboBox2.getSelectedItem();
+            controller.actionPerformed(e);
+            }
+        });
+        comboBox1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                selectedStart = (String) comboBox1.getSelectedItem();
+                controller.actionPerformed(e);
             }
         });
     }
 
 
     public UserInterface( String error){
-        this.error = error;
-        this.init();
+        JFrame frame = new JFrame("Fehler");
+        frame.setContentPane(this.panelMain);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setVisible(true);
+        PathTextPane.setText(error);
     }
 
     private void init(){
-        //button1.addActionListener(e -> JOptionPane.showMessageDialog(null, "Ich bin ein Looser"));
-        //button1.setVisible(true);
-        //-comboBox1.setVisible(true);
-        //panelMain.add(button1);
-        /*
-        panelMain.add(OrtStartTextPane);
-        panelMain.add(comboBox1);
-        panelMain.add(OrtZielTextPane);
-        panelMain.add(comboBox2);
-        panelMain.add(DistanzTextPane);
-        panelMain.add(DistanceTextPane);
-        panelMain.add(PathTextPane);
-        */
+
         for (String elem:cities) {
             comboBox1.addItem(elem);
             comboBox2.addItem(elem);
         }
 
-        String s = String.valueOf(mouse);
-        DistanceTextPane.setText(s + "km");
-
-        String listString = "";
-        for (String el : cities){
-            listString = listString + el + "\n";
-        }
-        PathTextPane.setText(listString);
 
         JFrame frame = new JFrame("Streckenberechnung");
 
@@ -101,15 +79,21 @@ public class UserInterface {
 
 
     public void updateDistance(int distance){
+        DistanceTextPane.setText(distance + "km");
 
     }
 
     public void updatePath(ArrayList<String> path){
 
+        String listString = "";
+        for (String el : path){
+            listString = listString + el + "\n";
+        }
+        PathTextPane.setText(listString);
     }
 
     public void showError(String error){
-
+    PathTextPane.setText(error);
     }
 
     public String getSelectedStart() {

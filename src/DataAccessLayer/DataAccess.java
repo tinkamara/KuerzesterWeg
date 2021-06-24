@@ -17,7 +17,7 @@ public class DataAccess {
         } catch (
                 Exception ex) {
             throw new NoDataFound();
-        }
 
+        }
     }
 }

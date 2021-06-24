@@ -4,6 +4,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Graph {
     private static ArrayList<Edge> existingEdges;
@@ -29,11 +30,12 @@ public class Graph {
         for( Node node : existingNodes){
             cities.add(node.getCity());
         }
+        Collections.sort(cities);
         return cities;
     }
 
     public static ArrayList<Node> cloneExistingNodes(){
-        ArrayList<Node> clonedNodes = new ArrayList();
+        ArrayList<Node> clonedNodes = new ArrayList<>();
         for (Node node : existingNodes){
             Node clonedNode = node.clone(node);
             clonedNodes.add(clonedNode);
@@ -47,10 +49,10 @@ public class Graph {
         Node nodeB = null;
            for (Edge edge : existingEdges) {
                for ( Node clonedNode : clonedNodes){
-                   if (clonedNode.equals(edge.getCityA())){
+                   if (clonedNode.getCity().equals(edge.getCityA().getCity())){
                        nodeA = clonedNode;
                    }
-                   if ( clonedNode.equals(edge.getCityB())){
+                   if ( clonedNode.getCity().equals(edge.getCityB().getCity())){
                        nodeB = clonedNode;
                    }
                }

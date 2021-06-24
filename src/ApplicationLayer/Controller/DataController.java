@@ -1,16 +1,15 @@
 package ApplicationLayer.Controller;
 
+import ApplicationLayer.Model.Graph;
 import DataAccessLayer.DataAccess;
 import DataAccessLayer.NoDataFound;
-
-import static ApplicationLayer.Model.Graph.init;
 
 public class DataController {
 
 
 
     public DataController() throws NoDataFound{
-        init(DataAccess.read());
+        Graph.init(DataAccess.read());
     }
 
 }
