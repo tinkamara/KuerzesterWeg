@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import static java.lang.Integer.MAX_VALUE;
 
-public class Node {
+public class Node implements Cloneable {
     private final String city;
     private Node predecessor;
     private final static ArrayList<Node> existingNodes = new ArrayList<>();
@@ -15,6 +15,11 @@ public class Node {
     this.city = city;
     this.predecessor = null;
     existingNodes.add(this);
+    }
+    private Node ( Node node){
+        this.city = node.getCity();
+        this.predecessor = node.predecessor;
+        this.distanceToStart = node.getDistanceToStart();
     }
 
 
@@ -31,11 +36,6 @@ public class Node {
         }
             return retNode;
 
-    }
-    public void resetNode(){
-        this.predecessor = null;
-        this.distanceToStart = MAX_VALUE;
-        this.used = false;
     }
 
 
@@ -79,4 +79,8 @@ public class Node {
         this.used = used;
     }
 
+
+    protected Node clone(Node node) {
+        return new Node(node);
+    }
 }

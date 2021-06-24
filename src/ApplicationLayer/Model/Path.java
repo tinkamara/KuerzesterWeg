@@ -7,16 +7,14 @@ import java.util.ArrayList;
 import static java.lang.Integer.MAX_VALUE;
 
 public class Path {
-    private final Node start;
-    private Node destination;
-    private final ArrayList<Node> nodes;
+    private Node start = null;
+    private Node destination = null;
     private ArrayList<Node> remainingNodes;
+    private ArrayList<Edge> edges;
 
     public Path(String start, String destination, UserInterface userInterface) {
-        this.start = Node.getNode(start);
-        this.destination = Node.getNode(destination);
-        this.nodes = Node.getExistingNodes();
-        this.initialize();
+
+        this.initialize( start, destination);
 
         while (!remainingNodes.isEmpty()) {
             Node node = remainingNodes.get(0);
@@ -25,29 +23,43 @@ public class Path {
                 continue;
             }
             node.setUsed(true);
-            this.setNextNeighbor(node);
+            this.getNextShortest(node);
         }
         userInterface.updateDistance(this.destination.getDistanceToStart());
         System.out.println(this.destination.getDistanceToStart());
-        //userInterface.updatePath
         for(String string: this.calcPath()){
             System.out.println(string);
         }
 
     }
 
-    public void initialize() {
-        for (Node node : this.nodes) {
-            node.resetNode();
+    public void initialize( String start, String destination) {
+        this.edges = Graph.cloneExistingEdges();
+        for (Edge edge : edges) {
+            if (this.destination == null || this.start == null) {
+                if (edge.getCityA().getCity().equals(destination)) {
+                    this.destination = edge.getCityA();
+                } else if (edge.getCityB().getCity().equals(destination)) {
+                    this.destination = edge.getCityB();
+                }
+                if (edge.getCityA().getCity().equals(start)) {
+                    this.start = edge.getCityA();
+                } else if (edge.getCityB().getCity().equals(start)) {
+                    this.destination = edge.getCityB();
+
+                }
+            } else {
+                this.remainingNodes = new ArrayList<>();
+                remainingNodes.add(this.start);
+                this.start.setPredecessor(null);
+                this.start.updateDistanceToStart(0);
+                return;
+            }
         }
-        this.start.setPredecessor(null);
-        this.start.updateDistanceToStart(0);
-        remainingNodes = new ArrayList<>();
-        remainingNodes.add(this.start);
     }
 
-    public void setNextNeighbor(Node node){
-        for (Edge edge : Graph.getExistingEdges()) {
+    public void getNextShortest(Node node){
+        for (Edge edge : this.edges) {
             if (node.equals(edge.getCityA())) {
                 Node neighbor = edge.getCityB();
                 if (neighbor.getDistanceToStart() == MAX_VALUE || neighbor.getDistanceToStart() > (edge.getDistance() + node.getDistanceToStart())) {
