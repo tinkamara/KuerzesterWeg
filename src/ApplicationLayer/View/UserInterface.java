@@ -39,20 +39,25 @@ public class UserInterface {
     private JTextPane PathTextPane;
     private JTextPane DistanzTextPane;
 
+
+=======
     private int mouse = 13;
+
 
     public UserInterface( ArrayList<String> cities, UserController controller) {
         this.controller = controller;
         this.cities = cities;
         this.init();
+
+=======
         comboBox2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //soll bei Änderung der Werte in ComboBox das Textfeld triggern
             }
         });
-    }
 
+    }
 
     public UserInterface( String error){
         this.error = error;
@@ -60,6 +65,8 @@ public class UserInterface {
     }
 
     private void init(){
+
+
         //button1.addActionListener(e -> JOptionPane.showMessageDialog(null, "Ich bin ein Looser"));
         //button1.setVisible(true);
         comboBox1.setVisible(true);
@@ -87,6 +94,7 @@ public class UserInterface {
         PathTextPane.setText(listString);
 
         JFrame frame = new JFrame("Streckenberechnung");
+
         frame.setContentPane(this.panelMain);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
