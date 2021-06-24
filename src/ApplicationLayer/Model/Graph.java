@@ -45,14 +45,15 @@ public class Graph {
 
     public static ArrayList<Edge> cloneExistingEdges(ArrayList<Node> clonedNodes){
         ArrayList<Edge> clonedEdges = new ArrayList<>();
-        Node nodeA = null;
-        Node nodeB = null;
+
            for (Edge edge : existingEdges) {
+               Node nodeA = null;
+               Node nodeB = null;
                for ( Node clonedNode : clonedNodes){
-                   if (clonedNode.getCity().equals(edge.getCityA().getCity())){
+                   if (nodeA == null && clonedNode.getCity().equals(edge.getCityA().getCity())){
                        nodeA = clonedNode;
                    }
-                   if ( clonedNode.getCity().equals(edge.getCityB().getCity())){
+                   if (nodeB == null && clonedNode.getCity().equals(edge.getCityB().getCity())){
                        nodeB = clonedNode;
                    }
                }

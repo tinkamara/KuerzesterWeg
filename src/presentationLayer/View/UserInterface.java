@@ -3,57 +3,61 @@ package presentationLayer.View;
 import presentationLayer.Controller.UserController;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.util.ArrayList;
 
 
 public class UserInterface {
-    private String error;
     private ArrayList<String> cities;
     private String selectedStart;
     private String selectedDestination;
-    private UserController controller;
-    //Elemente des UI.form:
 
+    // UserInterface.form elements
     private JPanel panelMain;
-    private JTextPane OrtStartTextPane;
-    private JComboBox comboBox1;
-    private JTextPane OrtZielTextPane;
-    private JComboBox comboBox2;
-    private JTextPane DistanzTextPane;
-    private JTextPane DistanceTextPane;
+    private JComboBox<String> startComboBox;
+    private JComboBox<String> destinationComboBox;
+    private JLabel distanceValueLabel;
     private JTextPane PathTextPane;
+    private JButton routeSpeichernButton;
+    private JLabel pathLabel;
+    private JScrollPane pathScrollPane;
+    private JLabel distanceLabel;
+    private JLabel destinationLabel;
+    private JLabel startLabel;
 
     public UserInterface( ArrayList<String> cities, UserController controller) {
-        this.controller = controller;
         this.cities = cities;
         this.init();
-        this.selectedStart = (String) comboBox1.getSelectedItem();
-        this.selectedDestination = (String) comboBox2.getSelectedItem();
+        this.selectedStart = (String) startComboBox.getSelectedItem();
+        this.selectedDestination = (String) destinationComboBox.getSelectedItem();
 
-        comboBox2.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                selectedDestination = (String) comboBox2.getSelectedItem();
-            controller.actionPerformed(e);
-            }
+        destinationComboBox.addActionListener(e -> {
+            selectedDestination = (String) destinationComboBox.getSelectedItem();
+        controller.actionPerformed(e);
         });
-        comboBox1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                selectedStart = (String) comboBox1.getSelectedItem();
-                controller.actionPerformed(e);
+        startComboBox.addActionListener(e -> {
+            selectedStart = (String) startComboBox.getSelectedItem();
+            controller.actionPerformed(e);
+        });
+        routeSpeichernButton.addActionListener(e -> {
+            JFileChooser chooser = new JFileChooser();
+            FileNameExtensionFilter filter = new FileNameExtensionFilter("CSV-Datei", "csv");
+            chooser.setFileFilter(filter);
+            int saveApproval = chooser.showSaveDialog(new JOptionPane());
+            if (saveApproval == JFileChooser.APPROVE_OPTION) {
+                controller.savePath(chooser.getSelectedFile());
             }
+
         });
     }
 
 
     public UserInterface( String error){
-        JFrame frame = new JFrame("Fehler");
+        JFrame frame = new JFrame("Error");
         frame.setContentPane(this.panelMain);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
+        frame.setResizable(false);
         frame.setVisible(true);
         PathTextPane.setText(error);
     }
@@ -61,35 +65,39 @@ public class UserInterface {
     private void init(){
 
         for (String elem:cities) {
-            comboBox1.addItem(elem);
-            comboBox2.addItem(elem);
+            startComboBox.addItem(elem);
+            destinationComboBox.addItem(elem);
         }
 
 
-        JFrame frame = new JFrame("Streckenberechnung");
+        JFrame frame = new JFrame("Routenrechner");
 
         frame.setContentPane(this.panelMain);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
+        frame.setResizable(false);
         frame.setVisible(true);
     }
 
-    //at destination/start change
-    // controller.actionPerformed(event);
-
-
     public void updateDistance(int distance){
-        DistanceTextPane.setText(distance + "km");
+        distanceValueLabel.setText(distance + " km");
 
     }
 
     public void updatePath(ArrayList<String> path){
 
-        String listString = "";
-        for (String el : path){
-            listString = listString + el + "\n";
+        String pathShown = null;
+        if (path.size() <= 1){
+            PathTextPane.setText("Wähle Startpunkt und Ziel!");
+        }else {
+            for (String city : path) {
+                if (pathShown == null){
+                    pathShown = city;
+                } else
+                pathShown = pathShown.concat("\n" + city );
+            }
+            PathTextPane.setText(pathShown);
         }
-        PathTextPane.setText(listString);
     }
 
     public void showError(String error){

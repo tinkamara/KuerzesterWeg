@@ -13,21 +13,25 @@ public class Path {
     private ArrayList<Edge> clonedEdges;
 
     public Path(String start, String destination, UserInterface userInterface) {
-        this.initialize( start, destination);
+        try {
+            this.initialize(start, destination);
 
-        while (!remainingNodes.isEmpty()) {
-            Node node = remainingNodes.get(0);
-            remainingNodes.remove(node);
-            if (node.isUsed()) {
-                continue;
+            while (!remainingNodes.isEmpty()) {
+                Node node = remainingNodes.get(0);
+                remainingNodes.remove(node);
+                if (node.isUsed()) {
+                    continue;
+                }
+                node.setUsed(true);
+                this.getNextShortest(node);
             }
-            node.setUsed(true);
-            this.getNextShortest(node);
+            userInterface.updateDistance(this.destination.getDistanceToStart());
+            userInterface.updatePath(this.calcPath());
+
+
+        } catch (NullPointerException e) {
+            userInterface.showError(e.getMessage());
         }
-        userInterface.updateDistance(this.destination.getDistanceToStart());
-        userInterface.updatePath(this.calcPath());
-
-
     }
 
     public void initialize( String start, String destination) {
@@ -62,6 +66,7 @@ public class Path {
                 if (neighbor.getDistanceToStart() == MAX_VALUE || neighbor.getDistanceToStart() > (clonedEdge.getDistance() + node.getDistanceToStart())) {
 
                     neighbor.setPredecessor(node);
+                    neighbor.setDistanceToNeighbor(clonedEdge.getDistance());
                     neighbor.updateDistanceToStart((clonedEdge.getDistance() + node.getDistanceToStart()));
                     remainingNodes.add(neighbor);
 
@@ -74,11 +79,16 @@ public class Path {
 
     public ArrayList<String> calcPath() {
         ArrayList<String> path = new ArrayList<>();
-        while (this.destination.getPredecessor() != null) {
-            path.add(0, this.destination.getCity());
-            this.destination = this.destination.getPredecessor();
+        Node routeNode = this.destination;
+        while (routeNode.getPredecessor() != null) {
+            path.add(0, routeNode.getCity());
+            path.add(0, "<< " + routeNode.getDistanceToNeighbor() + " km bis >>");
+            routeNode = routeNode.getPredecessor();
         }
-        path.add(0, this.destination.getCity());
+        path.add(0, routeNode.getCity());
         return path;
+    }
+    public int getTotalDistance(){
+        return this.destination.getDistanceToStart();
     }
 }
