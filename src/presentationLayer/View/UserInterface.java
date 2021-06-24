@@ -3,6 +3,9 @@ package presentationLayer.View;
 import presentationLayer.Controller.UserController;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 
@@ -23,6 +26,7 @@ public class UserInterface {
     private JTextPane PathTextPane;
     private JLabel pathLabel;
     private JScrollPane pathScrollPane;
+    private JButton routeSpeichernButton;
 
     public UserInterface( ArrayList<String> cities, UserController controller) {
         this.cities = cities;
@@ -37,6 +41,18 @@ public class UserInterface {
         startComboBox.addActionListener(e -> {
             selectedStart = (String) startComboBox.getSelectedItem();
             controller.actionPerformed(e);
+        });
+        routeSpeichernButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser chooser = new JFileChooser();
+                FileNameExtensionFilter filter = new FileNameExtensionFilter("CSV-Datei", "csv");
+                chooser.setFileFilter(filter);
+                int returnval = chooser.showSaveDialog(new JOptionPane());
+                if (returnval == JFileChooser.APPROVE_OPTION);
+                controller.savePath(chooser.getSelectedFile());
+
+            }
         });
     }
 
