@@ -10,39 +10,43 @@ public class UserInterface {
     private ArrayList<String> cities;
     private String selectedStart;
     private String selectedDestination;
-    //Elemente des UI.form:
+
+
 
     private JPanel panelMain;
-    private JTextPane OrtStartTextPane;
-    private JComboBox<String> comboBox1;
-    private JTextPane OrtZielTextPane;
-    private JComboBox<String> comboBox2;
-    private JTextPane DistanzTextPane;
-    private JTextPane DistanceTextPane;
+    private JLabel startLabel;
+    private JComboBox<String> startComboBox;
+    private JLabel destinationLabel;
+    private JComboBox<String> destinationComboBox;
+    private JLabel distanceLabel;
+    private JLabel distanceValueLabel;
     private JTextPane PathTextPane;
+    private JLabel pathLabel;
+    private JScrollPane pathScrollPane;
 
     public UserInterface( ArrayList<String> cities, UserController controller) {
         this.cities = cities;
         this.init();
-        this.selectedStart = (String) comboBox1.getSelectedItem();
-        this.selectedDestination = (String) comboBox2.getSelectedItem();
+        this.selectedStart = (String) startComboBox.getSelectedItem();
+        this.selectedDestination = (String) destinationComboBox.getSelectedItem();
 
-        comboBox2.addActionListener(e -> {
-            selectedDestination = (String) comboBox2.getSelectedItem();
+        destinationComboBox.addActionListener(e -> {
+            selectedDestination = (String) destinationComboBox.getSelectedItem();
         controller.actionPerformed(e);
         });
-        comboBox1.addActionListener(e -> {
-            selectedStart = (String) comboBox1.getSelectedItem();
+        startComboBox.addActionListener(e -> {
+            selectedStart = (String) startComboBox.getSelectedItem();
             controller.actionPerformed(e);
         });
     }
 
 
     public UserInterface( String error){
-        JFrame frame = new JFrame("Fehler");
+        JFrame frame = new JFrame("Error");
         frame.setContentPane(this.panelMain);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
+        frame.setResizable(false);
         frame.setVisible(true);
         PathTextPane.setText(error);
     }
@@ -50,31 +54,39 @@ public class UserInterface {
     private void init(){
 
         for (String elem:cities) {
-            comboBox1.addItem(elem);
-            comboBox2.addItem(elem);
+            startComboBox.addItem(elem);
+            destinationComboBox.addItem(elem);
         }
 
 
-        JFrame frame = new JFrame("Streckenberechnung");
+        JFrame frame = new JFrame("Routenrechner");
 
         frame.setContentPane(this.panelMain);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
+        frame.setResizable(false);
         frame.setVisible(true);
     }
 
     public void updateDistance(int distance){
-        DistanceTextPane.setText(distance + "km");
+        distanceValueLabel.setText(distance + " km");
 
     }
 
     public void updatePath(ArrayList<String> path){
 
-        String pathShown = "";
-        for (String city : path){
-            pathShown = pathShown.concat( city + "\n");
+        String pathShown = null;
+        if (path.size() <= 1){
+            PathTextPane.setText("Wählen Sie \nStartpunkt und Ziel");
+        }else {
+            for (String city : path) {
+                if (pathShown == null){
+                    pathShown = city;
+                } else
+                pathShown = pathShown.concat("\n" + city );
+            }
+            PathTextPane.setText(pathShown);
         }
-        PathTextPane.setText(pathShown);
     }
 
     public void showError(String error){
