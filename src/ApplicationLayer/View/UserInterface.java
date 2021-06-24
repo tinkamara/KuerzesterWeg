@@ -5,8 +5,6 @@ import ApplicationLayer.Controller.UserController;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 import java.util.ArrayList;
 
 /*import javafx.scene.layout.VBox;
@@ -40,7 +38,7 @@ public class UserInterface {
     private JTextPane DistanzTextPane;
 
 
-=======
+
     private int mouse = 13;
 
 
@@ -49,7 +47,7 @@ public class UserInterface {
         this.cities = cities;
         this.init();
 
-=======
+
         comboBox2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
