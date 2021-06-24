@@ -29,15 +29,15 @@ public class UserInterface {
     private UserController controller;
 
     //Elemente des UI.form:
-    private JPanel panelMain = new JPanel();
+    //private JPanel panelMain = new JPanel();
+    private JPanel panelMain;
     private JTextPane OrtStartTextPane;
     private JComboBox comboBox1;
-    private JButton button1;
-    private JComboBox comboBox2;
     private JTextPane OrtZielTextPane;
+    private JComboBox comboBox2;
+    private JTextPane DistanzTextPane;
     private JTextPane DistanceTextPane;
     private JTextPane PathTextPane;
-    private JTextPane DistanzTextPane;
 
     private int mouse = 13;
 
@@ -45,6 +45,7 @@ public class UserInterface {
         this.controller = controller;
         this.cities = cities;
         this.init();
+
         comboBox2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -62,8 +63,9 @@ public class UserInterface {
     private void init(){
         //button1.addActionListener(e -> JOptionPane.showMessageDialog(null, "Ich bin ein Looser"));
         //button1.setVisible(true);
-        comboBox1.setVisible(true);
+        //-comboBox1.setVisible(true);
         //panelMain.add(button1);
+        /*
         panelMain.add(OrtStartTextPane);
         panelMain.add(comboBox1);
         panelMain.add(OrtZielTextPane);
@@ -71,14 +73,14 @@ public class UserInterface {
         panelMain.add(DistanzTextPane);
         panelMain.add(DistanceTextPane);
         panelMain.add(PathTextPane);
-
+        */
         for (String elem:cities) {
             comboBox1.addItem(elem);
             comboBox2.addItem(elem);
         }
 
         String s = String.valueOf(mouse);
-        DistanceTextPane.setText(s);
+        DistanceTextPane.setText(s + "km");
 
         String listString = "";
         for (String el : cities){
@@ -87,6 +89,7 @@ public class UserInterface {
         PathTextPane.setText(listString);
 
         JFrame frame = new JFrame("Streckenberechnung");
+
         frame.setContentPane(this.panelMain);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
