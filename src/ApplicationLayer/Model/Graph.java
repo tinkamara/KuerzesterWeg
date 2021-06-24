@@ -32,11 +32,29 @@ public class Graph {
         return cities;
     }
 
-    public static ArrayList<Edge> cloneExistingEdges(){
-        ArrayList<Edge> clonedEdges = new ArrayList<>();
+    public static ArrayList<Node> cloneExistingNodes(){
+        ArrayList<Node> clonedNodes = new ArrayList();
+        for (Node node : existingNodes){
+            Node clonedNode = node.clone(node);
+            clonedNodes.add(clonedNode);
+        }
+        return clonedNodes;
+    }
 
+    public static ArrayList<Edge> cloneExistingEdges(ArrayList<Node> clonedNodes){
+        ArrayList<Edge> clonedEdges = new ArrayList<>();
+        Node nodeA = null;
+        Node nodeB = null;
            for (Edge edge : existingEdges) {
-               Edge clonedEdge = edge.clone(edge);
+               for ( Node clonedNode : clonedNodes){
+                   if (clonedNode.equals(edge.getCityA())){
+                       nodeA = clonedNode;
+                   }
+                   if ( clonedNode.equals(edge.getCityB())){
+                       nodeB = clonedNode;
+                   }
+               }
+               Edge clonedEdge = new Edge(nodeA,nodeB,edge.getDistance());
                clonedEdges.add(clonedEdge);
            }
 

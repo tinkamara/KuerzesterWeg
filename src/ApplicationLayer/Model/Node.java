@@ -81,6 +81,7 @@ public class Node implements Cloneable {
 
 
     protected Node clone(Node node) {
-        return new Node(node);
+        Node clonedNode = new Node(node);
+        return clonedNode;
     }
 }

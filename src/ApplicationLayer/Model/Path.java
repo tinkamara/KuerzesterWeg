@@ -10,10 +10,10 @@ public class Path {
     private Node start = null;
     private Node destination = null;
     private ArrayList<Node> remainingNodes;
-    private ArrayList<Edge> edges;
+    private ArrayList<Edge> clonedEdges;
+    private ArrayList<Node> clonedNodes;
 
     public Path(String start, String destination, UserInterface userInterface) {
-
         this.initialize( start, destination);
 
         while (!remainingNodes.isEmpty()) {
@@ -34,32 +34,32 @@ public class Path {
     }
 
     public void initialize( String start, String destination) {
-        this.edges = Graph.cloneExistingEdges();
-        for (Edge edge : edges) {
+        this.clonedNodes = Graph.cloneExistingNodes();
+        this.clonedEdges = Graph.cloneExistingEdges(clonedNodes);
+        for (Node node : clonedNodes) {
             if (this.destination == null || this.start == null) {
-                if (edge.getCityA().getCity().equals(destination)) {
-                    this.destination = edge.getCityA();
-                } else if (edge.getCityB().getCity().equals(destination)) {
-                    this.destination = edge.getCityB();
+                if (node.getCity().equals(destination)) {
+                    this.destination = node;
                 }
-                if (edge.getCityA().getCity().equals(start)) {
-                    this.start = edge.getCityA();
-                } else if (edge.getCityB().getCity().equals(start)) {
-                    this.destination = edge.getCityB();
-
+                if (node.getCity().equals(start)) {
+                    this.start = node;
                 }
             } else {
+                break;
+            }
+        }
                 this.remainingNodes = new ArrayList<>();
                 remainingNodes.add(this.start);
                 this.start.setPredecessor(null);
                 this.start.updateDistanceToStart(0);
-                return;
-            }
+
+
         }
-    }
+
+
 
     public void getNextShortest(Node node){
-        for (Edge edge : this.edges) {
+        for (Edge edge : this.clonedEdges) {
             if (node.equals(edge.getCityA())) {
                 Node neighbor = edge.getCityB();
                 if (neighbor.getDistanceToStart() == MAX_VALUE || neighbor.getDistanceToStart() > (edge.getDistance() + node.getDistanceToStart())) {
