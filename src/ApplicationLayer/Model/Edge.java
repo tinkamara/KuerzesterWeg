@@ -7,10 +7,16 @@ public class Edge {
     private final int distance;
 
 
-    public Edge( String cityA, String cityB, int distance){
+    public Edge ( String cityA, String cityB, int distance){
         this.distance = distance;
         this.cityA = Node.getNode( cityA );
         this.cityB = Node.getNode( cityB );
+    }
+    public Edge(Node nodeA, Node nodeB, int distance ){
+        this.distance = distance;
+        this.cityA = nodeA;
+        this.cityB = nodeB;
+
     }
 
     public Node getCityA() {
@@ -26,4 +32,6 @@ public class Edge {
     public int getDistance() {
         return this.distance;
     }
+
+
 }

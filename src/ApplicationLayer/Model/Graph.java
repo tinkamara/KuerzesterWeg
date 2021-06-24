@@ -23,10 +23,6 @@ public class Graph {
 
     }
 
-    public static ArrayList<Edge> getExistingEdges() {
-
-        return existingEdges;
-    }
 
     public static ArrayList<String> getCities() {
         ArrayList<String> cities = new ArrayList<>();
@@ -34,6 +30,35 @@ public class Graph {
             cities.add(node.getCity());
         }
         return cities;
+    }
+
+    public static ArrayList<Node> cloneExistingNodes(){
+        ArrayList<Node> clonedNodes = new ArrayList();
+        for (Node node : existingNodes){
+            Node clonedNode = node.clone(node);
+            clonedNodes.add(clonedNode);
+        }
+        return clonedNodes;
+    }
+
+    public static ArrayList<Edge> cloneExistingEdges(ArrayList<Node> clonedNodes){
+        ArrayList<Edge> clonedEdges = new ArrayList<>();
+        Node nodeA = null;
+        Node nodeB = null;
+           for (Edge edge : existingEdges) {
+               for ( Node clonedNode : clonedNodes){
+                   if (clonedNode.equals(edge.getCityA())){
+                       nodeA = clonedNode;
+                   }
+                   if ( clonedNode.equals(edge.getCityB())){
+                       nodeB = clonedNode;
+                   }
+               }
+               Edge clonedEdge = new Edge(nodeA,nodeB,edge.getDistance());
+               clonedEdges.add(clonedEdge);
+           }
+
+        return clonedEdges;
     }
 }
 

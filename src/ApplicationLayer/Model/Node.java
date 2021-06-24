@@ -1,12 +1,10 @@
 package ApplicationLayer.Model;
 
-//import org.jetbrains.annotations.NotNull;
-
 import java.util.ArrayList;
 
 import static java.lang.Integer.MAX_VALUE;
 
-public class Node implements  Comparable{
+public class Node implements Cloneable {
     private final String city;
     private Node predecessor;
     private final static ArrayList<Node> existingNodes = new ArrayList<>();
@@ -17,6 +15,11 @@ public class Node implements  Comparable{
     this.city = city;
     this.predecessor = null;
     existingNodes.add(this);
+    }
+    private Node ( Node node){
+        this.city = node.getCity();
+        this.predecessor = node.predecessor;
+        this.distanceToStart = node.getDistanceToStart();
     }
 
 
@@ -33,11 +36,6 @@ public class Node implements  Comparable{
         }
             return retNode;
 
-    }
-    public void resetNode(){
-        this.predecessor = null;
-        this.distanceToStart = MAX_VALUE;
-        this.used = false;
     }
 
 
@@ -81,8 +79,9 @@ public class Node implements  Comparable{
         this.used = used;
     }
 
-    @Override
-    public int compareTo(@NotNull Object o) {
-       return 1;
+
+    protected Node clone(Node node) {
+        Node clonedNode = new Node(node);
+        return clonedNode;
     }
 }
