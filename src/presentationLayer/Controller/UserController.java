@@ -2,8 +2,8 @@ package presentationLayer.Controller;
 
 import ApplicationLayer.Model.Graph;
 import ApplicationLayer.Model.Path;
-import presentationLayer.View.UserInterface;
 import DataAccessLayer.NoDataFound;
+import presentationLayer.View.UserInterface;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -43,18 +43,20 @@ public class UserController implements ActionListener {
         try {
             FileWriter writer = new FileWriter(file);
             int i = 0;
+            writer.write("Distanz;Ort;\nStart;");
             for(String routePoint : path.calcPath()) {
                 i++;
                 if (i % 2 == 0) {
                     writer.write(routePoint + ";");
 
                 } else {
-                    writer.write(routePoint);
+                    writer.write(routePoint + ";\n");
                 }
             }
+            writer.write("Gesamtstrecke;"+path.getTotalDistance()+" km;");
             writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException notFound) {
+            userInterface.showError(notFound.getMessage());
         }
 
 

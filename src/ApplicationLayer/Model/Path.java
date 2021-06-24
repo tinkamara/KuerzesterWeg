@@ -88,4 +88,7 @@ public class Path {
         path.add(0, routeNode.getCity());
         return path;
     }
+    public int getTotalDistance(){
+        return this.destination.getDistanceToStart();
+    }
 }
