@@ -1,7 +1,5 @@
 package ApplicationLayer.Model;
 
-import presentationLayer.View.UserInterface;
-
 import java.util.ArrayList;
 
 import static java.lang.Integer.MAX_VALUE;
@@ -12,29 +10,23 @@ public class Path {
     private ArrayList<Node> remainingNodes;
     private ArrayList<Edge> clonedEdges;
 
-    public Path(String start, String destination, UserInterface userInterface) {
-        try {
-            this.initialize(start, destination);
+    public Path(String start, String destination) {
 
-            while (!remainingNodes.isEmpty()) {
-                Node node = remainingNodes.get(0);
-                remainingNodes.remove(node);
-                if (node.isUsed()) {
-                    continue;
-                }
-                node.setUsed(true);
-                this.getNextShortest(node);
+        this.initialize(start, destination);
+
+        while (!remainingNodes.isEmpty()) {
+            Node node = remainingNodes.get(0);
+            remainingNodes.remove(node);
+            if (node.isUsed()) {
+                continue;
             }
-            userInterface.updateDistance(this.destination.getDistanceToStart());
-            userInterface.updatePath(this.calcPath());
-
-
-        } catch (NullPointerException e) {
-            userInterface.showError(e.getMessage());
+            node.setUsed(true);
+            this.getNextShortest(node);
         }
+
     }
 
-    public void initialize( String start, String destination) {
+    public void initialize(String start, String destination) {
         ArrayList<Node> clonedNodes = Graph.cloneExistingNodes();
         this.clonedEdges = Graph.cloneExistingEdges(clonedNodes);
         for (Node clonedNode : clonedNodes) {
@@ -49,17 +41,16 @@ public class Path {
                 break;
             }
         }
-                this.remainingNodes = new ArrayList<>();
-                remainingNodes.add(this.start);
-                this.start.setPredecessor(null);
-                this.start.updateDistanceToStart(0);
+        this.remainingNodes = new ArrayList<>();
+        remainingNodes.add(this.start);
+        this.start.setPredecessor(null);
+        this.start.updateDistanceToStart(0);
 
 
-        }
+    }
 
 
-
-    public void getNextShortest(Node node){
+    public void getNextShortest(Node node) {
         for (Edge clonedEdge : this.clonedEdges) {
             if (node.equals(clonedEdge.getCityA())) {
                 Node neighbor = clonedEdge.getCityB();
@@ -76,7 +67,6 @@ public class Path {
     }
 
 
-
     public ArrayList<String> calcPath() {
         ArrayList<String> path = new ArrayList<>();
         Node routeNode = this.destination;
@@ -88,7 +78,8 @@ public class Path {
         path.add(0, routeNode.getCity());
         return path;
     }
-    public int getTotalDistance(){
+
+    public int getTotalDistance() {
         return this.destination.getDistanceToStart();
     }
 }

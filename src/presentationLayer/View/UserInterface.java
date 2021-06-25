@@ -17,7 +17,7 @@ public class UserInterface {
     private JComboBox<String> startComboBox;
     private JComboBox<String> destinationComboBox;
     private JLabel distanceValueLabel;
-    private JTextPane PathTextPane;
+    private JTextPane pathTextPane;
     private JButton routeSpeichernButton;
     private JLabel pathLabel;
     private JScrollPane pathScrollPane;
@@ -25,7 +25,7 @@ public class UserInterface {
     private JLabel destinationLabel;
     private JLabel startLabel;
 
-    public UserInterface( ArrayList<String> cities, UserController controller) {
+    public UserInterface(ArrayList<String> cities, UserController controller) {
         this.cities = cities;
         this.init();
         this.selectedStart = (String) startComboBox.getSelectedItem();
@@ -33,7 +33,7 @@ public class UserInterface {
 
         destinationComboBox.addActionListener(e -> {
             selectedDestination = (String) destinationComboBox.getSelectedItem();
-        controller.actionPerformed(e);
+            controller.actionPerformed(e);
         });
         startComboBox.addActionListener(e -> {
             selectedStart = (String) startComboBox.getSelectedItem();
@@ -52,19 +52,19 @@ public class UserInterface {
     }
 
 
-    public UserInterface( String error){
+    public UserInterface(String error) {
         JFrame frame = new JFrame("Error");
         frame.setContentPane(this.panelMain);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setResizable(false);
         frame.setVisible(true);
-        PathTextPane.setText(error);
+        pathTextPane.setText(error);
     }
 
-    private void init(){
+    private void init() {
 
-        for (String elem:cities) {
+        for (String elem : cities) {
             startComboBox.addItem(elem);
             destinationComboBox.addItem(elem);
         }
@@ -79,29 +79,29 @@ public class UserInterface {
         frame.setVisible(true);
     }
 
-    public void updateDistance(int distance){
+    public void updateDistance(int distance) {
         distanceValueLabel.setText(distance + " km");
 
     }
 
-    public void updatePath(ArrayList<String> path){
+    public void updatePath(ArrayList<String> path) {
 
         String pathShown = null;
-        if (path.size() <= 1){
-            PathTextPane.setText("Wähle Startpunkt und Ziel!");
-        }else {
+        if (path.size() <= 1) {
+            pathTextPane.setText("Wähle Startpunkt und Ziel!");
+        } else {
             for (String city : path) {
-                if (pathShown == null){
+                if (pathShown == null) {
                     pathShown = city;
                 } else
-                pathShown = pathShown.concat("\n" + city );
+                    pathShown = pathShown.concat("\n" + city);
             }
-            PathTextPane.setText(pathShown);
+            pathTextPane.setText(pathShown);
         }
     }
 
-    public void showError(String error){
-    PathTextPane.setText(error);
+    public void showError(String error) {
+        pathTextPane.setText(error);
     }
 
     public String getSelectedStart() {

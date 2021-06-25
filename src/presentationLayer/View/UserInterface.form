@@ -115,7 +115,7 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="9c7b3" class="javax.swing.JTextPane" binding="PathTextPane">
+          <component id="9c7b3" class="javax.swing.JTextPane" binding="pathTextPane">
             <constraints/>
             <properties>
               <background color="-986881"/>
@@ -139,7 +139,7 @@
           <horizontalAlignment value="0"/>
           <horizontalTextPosition value="0"/>
           <labelFor value="9c7b3"/>
-          <text value="Ihre Route"/>
+          <text value="Deine Route"/>
         </properties>
       </component>
       <component id="cc621" class="javax.swing.JButton" binding="routeSpeichernButton" default-binding="true">
