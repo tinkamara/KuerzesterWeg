@@ -57,6 +57,7 @@
           <horizontalTextPosition value="0"/>
           <labelFor value="d60c7"/>
           <text value="Startpunkt"/>
+          <toolTipText value="Roadtrip, yeah"/>
           <verticalAlignment value="0"/>
         </properties>
       </component>
