@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class AnswerObject implements Serializable {
     private ArrayList<String> path;
     private int distance;
-    private String error;
+    private String error = null;
 
     public AnswerObject(ArrayList<String> path, int distance){
         this.path = path;

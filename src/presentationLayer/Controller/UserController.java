@@ -1,45 +1,51 @@
 package presentationLayer.Controller;
 
-import ApplicationLayer.Model.Path;
-import DataAccessLayer.NoDataFound;
+import presentationLayer.Client.Client;
 import presentationLayer.Model.AnswerObject;
-import presentationLayer.Model.RequestObject;
 import presentationLayer.View.UserInterface;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.*;
-import java.net.Socket;
-import java.net.UnknownHostException;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class UserController implements ActionListener {
-    private NoDataFound noDataFound;
     private UserInterface userInterface;
-    private Path path;
     private AnswerObject currentAnswer;
 
     public UserController() {
 
     }
 
-    public UserController(NoDataFound noDataFound) {
-
-        this.noDataFound = noDataFound;
-    }
 
     public void startApplication() {
-    serverRequest(null,null);
-    this.userInterface = new UserInterface(this.currentAnswer.getPath(), this);
-    serverRequest(userInterface.getSelectedStart(), userInterface.getSelectedDestination());
-    updatePath();
-    updateDistance();
+        this.currentAnswer = Client.requestServer(null, null);
+
+        if (this.currentAnswer.getError() == null) {
+            this.userInterface = new UserInterface(this.currentAnswer.getPath(), this);
+        } else {
+            this.userInterface = new UserInterface(this.currentAnswer.getError());
+        }
+
+        this.currentAnswer = Client.requestServer(userInterface.getSelectedStart(), userInterface.getSelectedDestination());
+        if (this.currentAnswer.getError() == null) {
+            updatePath();
+            updateDistance();
+        } else {
+            showError();
+        }
     }
 
 
     public void actionPerformed(ActionEvent cityChanged) {
-       serverRequest(userInterface.getSelectedStart(), userInterface.getSelectedDestination());
-        updatePath();
-        updateDistance();
+       this.currentAnswer= Client.requestServer(userInterface.getSelectedStart(), userInterface.getSelectedDestination());
+       if(this.currentAnswer.getError() == null) {
+           updatePath();
+           updateDistance();
+       }else{
+           showError();
+       }
 
     }
 
@@ -90,36 +96,6 @@ public class UserController implements ActionListener {
         }
         writer.write("\nGesamtstrecke;" + currentAnswer.getDistance() + " km;");
         writer.close();
-    }
-    public void serverRequest(String start, String destination){
-        try (Socket socket = new Socket("127.0.0.1", 8888)) {
-
-            OutputStream output = socket.getOutputStream();
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(output);
-
-            RequestObject requestObject = new RequestObject(start, destination);
-            objectOutputStream.writeObject(requestObject);
-
-            PrintWriter writer = new PrintWriter(objectOutputStream, true);
-
-            writer.println(requestObject);
-            InputStream input = socket.getInputStream();
-            ObjectInputStream inputObject = new ObjectInputStream(input);
-            AnswerObject answerObject = (AnswerObject) inputObject.readObject();
-            this.currentAnswer = answerObject;
-
-
-
-        } catch (UnknownHostException ex) {
-
-            System.out.println("Server not found: " + ex.getMessage());
-
-        } catch (IOException ex) {
-
-            System.out.println("I/O error: " + ex.getMessage());
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
     }
 
 }
