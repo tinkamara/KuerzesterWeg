@@ -1,21 +1,22 @@
 package presentationLayer.Controller;
 
-import ApplicationLayer.Model.Graph;
 import ApplicationLayer.Model.Path;
 import DataAccessLayer.NoDataFound;
+import presentationLayer.Model.AnswerObject;
+import presentationLayer.Model.RequestObject;
 import presentationLayer.View.UserInterface;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
+import java.io.*;
+import java.net.Socket;
+import java.net.UnknownHostException;
 
 public class UserController implements ActionListener {
     private NoDataFound noDataFound;
     private UserInterface userInterface;
     private Path path;
+    private AnswerObject currentAnswer;
 
     public UserController() {
 
@@ -27,17 +28,18 @@ public class UserController implements ActionListener {
     }
 
     public void startApplication() {
-        if (this.noDataFound == null) {
-            this.userInterface = new UserInterface(Graph.getCities(), this);
-            this.path = new Path(Graph.getCities().get(0), Graph.getCities().get(0), this);
-        } else {
-            this.userInterface = new UserInterface(noDataFound.getMessage());
-        }
+    serverRequest(null,null);
+    this.userInterface = new UserInterface(this.currentAnswer.getPath(), this);
+    serverRequest(userInterface.getSelectedStart(), userInterface.getSelectedDestination());
+    updatePath();
+    updateDistance();
     }
 
 
     public void actionPerformed(ActionEvent cityChanged) {
-        this.path = new Path(userInterface.getSelectedStart(), userInterface.getSelectedDestination(), this);
+       serverRequest(userInterface.getSelectedStart(), userInterface.getSelectedDestination());
+        updatePath();
+        updateDistance();
 
     }
 
@@ -51,15 +53,15 @@ public class UserController implements ActionListener {
             userInterface.showError(notFound.getMessage());
         }
     }
-    public void updateDistance(int distance){
-        userInterface.updateDistance(distance);
+    public void updateDistance(){
+        userInterface.updateDistance(this.currentAnswer.getDistance());
     }
 
-    public void updatePath(ArrayList<String > path){
-        userInterface.updatePath(path);
+    public void updatePath(){
+        userInterface.updatePath(this.currentAnswer.getPath());
     }
-    public void showError(String error){
-        userInterface.showError(error);
+    public void showError(){
+        userInterface.showError(this.currentAnswer.getError());
     }
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
@@ -77,7 +79,7 @@ public class UserController implements ActionListener {
     public void writeFile(FileWriter writer) throws IOException {
         int i = 0;
         writer.write("Distanz;Ort;\nStart;");
-        for (String routePoint : path.calcPath()) {
+        for (String routePoint : currentAnswer.getPath()) {
             i++;
             if (i % 2 == 0) {
                 writer.write(routePoint + ";");
@@ -86,7 +88,38 @@ public class UserController implements ActionListener {
                 writer.write(routePoint + ";\n");
             }
         }
-        writer.write("\nGesamtstrecke;" + path.getTotalDistance() + " km;");
+        writer.write("\nGesamtstrecke;" + currentAnswer.getDistance() + " km;");
         writer.close();
     }
+    public void serverRequest(String start, String destination){
+        try (Socket socket = new Socket("127.0.0.1", 8888)) {
+
+            OutputStream output = socket.getOutputStream();
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(output);
+
+            RequestObject requestObject = new RequestObject(start, destination);
+            objectOutputStream.writeObject(requestObject);
+
+            PrintWriter writer = new PrintWriter(objectOutputStream, true);
+
+            writer.println(requestObject);
+            InputStream input = socket.getInputStream();
+            ObjectInputStream inputObject = new ObjectInputStream(input);
+            AnswerObject answerObject = (AnswerObject) inputObject.readObject();
+            this.currentAnswer = answerObject;
+
+
+
+        } catch (UnknownHostException ex) {
+
+            System.out.println("Server not found: " + ex.getMessage());
+
+        } catch (IOException ex) {
+
+            System.out.println("I/O error: " + ex.getMessage());
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

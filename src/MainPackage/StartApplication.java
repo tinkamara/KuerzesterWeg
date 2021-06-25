@@ -1,6 +1,6 @@
 package MainPackage;
 
-import ApplicationLayer.Controller.DataController;
+import ApplicationLayer.Controller.ServerController;
 import presentationLayer.Controller.UserController;
 import DataAccessLayer.NoDataFound;
 
@@ -8,7 +8,7 @@ public class StartApplication {
 
     public static void main(String[] args) {
         try {
-            new DataController();
+            new ServerController();
             UserController userController = new UserController();
             userController.startApplication();
         }catch(NoDataFound noDataFound) {

@@ -1,7 +1,5 @@
 package ApplicationLayer.Model;
 
-import presentationLayer.Controller.UserController;
-
 import java.util.ArrayList;
 
 import static java.lang.Integer.MAX_VALUE;
@@ -12,7 +10,7 @@ public class Path {
     private ArrayList<Node> remainingNodes;
     private ArrayList<Edge> clonedEdges;
 
-    public Path(String start, String destination, UserController userController) {
+    public Path(String start, String destination) {
         try {
             this.initialize(start, destination);
 
@@ -25,12 +23,12 @@ public class Path {
                 node.setUsed(true);
                 this.getNextShortest(node);
             }
-            userController.updateDistance(this.destination.getDistanceToStart());
-            userController.updatePath(this.calcPath());
+         //   userController.updateDistance(this.destination.getDistanceToStart());
+           // userController.updatePath(this.calcPath());
 
 
         } catch (NullPointerException e) {
-            userController.showError(e.getMessage());
+           // userController.showError(e.getMessage());
         }
     }
 
