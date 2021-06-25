@@ -3,10 +3,10 @@ package presentationLayer.Model;
 import java.io.Serializable;
 
 public class RequestObject implements Serializable {
-    private String start;
-    private String destination;
+    private final String start;
+    private final String destination;
 
-    public RequestObject(String start, String destination){
+    public RequestObject(String start, String destination) {
         this.start = start;
         this.destination = destination;
     }

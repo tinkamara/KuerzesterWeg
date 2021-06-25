@@ -11,25 +11,19 @@ public class Path {
     private ArrayList<Edge> clonedEdges;
 
     public Path(String start, String destination) {
-        try {
-            this.initialize(start, destination);
 
-            while (!remainingNodes.isEmpty()) {
-                Node node = remainingNodes.get(0);
-                remainingNodes.remove(node);
-                if (node.isUsed()) {
-                    continue;
-                }
-                node.setUsed(true);
-                this.getNextShortest(node);
+        this.initialize(start, destination);
+
+        while (!remainingNodes.isEmpty()) {
+            Node node = remainingNodes.get(0);
+            remainingNodes.remove(node);
+            if (node.isUsed()) {
+                continue;
             }
-         //   userController.updateDistance(this.destination.getDistanceToStart());
-           // userController.updatePath(this.calcPath());
-
-
-        } catch (NullPointerException e) {
-           // userController.showError(e.getMessage());
+            node.setUsed(true);
+            this.getNextShortest(node);
         }
+
     }
 
     public void initialize(String start, String destination) {

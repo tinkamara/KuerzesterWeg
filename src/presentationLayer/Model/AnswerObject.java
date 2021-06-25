@@ -8,13 +8,15 @@ public class AnswerObject implements Serializable {
     private int distance;
     private String error = null;
 
-    public AnswerObject(ArrayList<String> path, int distance){
+    public AnswerObject(ArrayList<String> path, int distance) {
         this.path = path;
         this.distance = distance;
     }
-    public AnswerObject(String error){
+
+    public AnswerObject(String error) {
         this.error = error;
     }
+
     public ArrayList<String> getPath() {
         return path;
     }

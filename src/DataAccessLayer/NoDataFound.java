@@ -4,7 +4,7 @@ public class NoDataFound extends Throwable {
 
     //message als Attribut für mögliche Erweiterung
 
-    private final String message = "Fehler beim Datenbankzugriff";
+    private final String message = "Fehler beim Datenbankzugriff des Servers.";
 
     public NoDataFound() {
 

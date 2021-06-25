@@ -39,13 +39,13 @@ public class UserController implements ActionListener {
 
 
     public void actionPerformed(ActionEvent cityChanged) {
-       this.currentAnswer= Client.requestServer(userInterface.getSelectedStart(), userInterface.getSelectedDestination());
-       if(this.currentAnswer.getError() == null) {
-           updatePath();
-           updateDistance();
-       }else{
-           showError();
-       }
+        this.currentAnswer = Client.requestServer(userInterface.getSelectedStart(), userInterface.getSelectedDestination());
+        if (this.currentAnswer.getError() == null) {
+            updatePath();
+            updateDistance();
+        } else {
+            showError();
+        }
 
     }
 
@@ -59,14 +59,16 @@ public class UserController implements ActionListener {
             userInterface.showError(notFound.getMessage());
         }
     }
-    public void updateDistance(){
+
+    public void updateDistance() {
         userInterface.updateDistance(this.currentAnswer.getDistance());
     }
 
-    public void updatePath(){
+    public void updatePath() {
         userInterface.updatePath(this.currentAnswer.getPath());
     }
-    public void showError(){
+
+    public void showError() {
         userInterface.showError(this.currentAnswer.getError());
     }
 

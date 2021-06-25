@@ -29,11 +29,9 @@ public class Client {
             InputStream input = socket.getInputStream();
             ObjectInputStream inputObject = new ObjectInputStream(input);
             answerObject = (AnswerObject) inputObject.readObject();
+            socket.close();
             return answerObject;
-        } catch (IOException e) {
-            answerObject = new AnswerObject(e.getMessage());
-            return answerObject;
-        } catch (ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException e) {
             answerObject = new AnswerObject(e.getMessage());
             return answerObject;
         }

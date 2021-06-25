@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import static java.lang.Integer.MAX_VALUE;
 
 public class Node implements Cloneable {
+    private final static ArrayList<Node> existingNodes = new ArrayList<>();
     private final String city;
     private Node predecessor;
-    private final static ArrayList<Node> existingNodes = new ArrayList<>();
     private int distanceToStart = MAX_VALUE;
     private int distanceToNeighbor = MAX_VALUE;
     private boolean used = false;
