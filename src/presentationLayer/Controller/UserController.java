@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class UserController implements ActionListener {
     private NoDataFound noDataFound;
@@ -28,7 +29,7 @@ public class UserController implements ActionListener {
     public void startApplication() {
         if (this.noDataFound == null) {
             this.userInterface = new UserInterface(Graph.getCities(), this);
-            this.path = new Path(Graph.getCities().get(0), Graph.getCities().get(0), userInterface);
+            this.path = new Path(Graph.getCities().get(0), Graph.getCities().get(0), this);
         } else {
             this.userInterface = new UserInterface(noDataFound.getMessage());
         }
@@ -36,7 +37,7 @@ public class UserController implements ActionListener {
 
 
     public void actionPerformed(ActionEvent cityChanged) {
-        this.path = new Path(userInterface.getSelectedStart(), userInterface.getSelectedDestination(), userInterface);
+        this.path = new Path(userInterface.getSelectedStart(), userInterface.getSelectedDestination(), this);
 
     }
 
@@ -49,6 +50,16 @@ public class UserController implements ActionListener {
         } catch (IOException notFound) {
             userInterface.showError(notFound.getMessage());
         }
+    }
+    public void updateDistance(int distance){
+        userInterface.updateDistance(distance);
+    }
+
+    public void updatePath(ArrayList<String > path){
+        userInterface.updatePath(path);
+    }
+    public void showError(String error){
+        userInterface.showError(error);
     }
 
     @SuppressWarnings("ResultOfMethodCallIgnored")

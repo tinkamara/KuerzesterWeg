@@ -1,6 +1,6 @@
 package ApplicationLayer.Model;
 
-import presentationLayer.View.UserInterface;
+import presentationLayer.Controller.UserController;
 
 import java.util.ArrayList;
 
@@ -12,7 +12,7 @@ public class Path {
     private ArrayList<Node> remainingNodes;
     private ArrayList<Edge> clonedEdges;
 
-    public Path(String start, String destination, UserInterface userInterface) {
+    public Path(String start, String destination, UserController userController) {
         try {
             this.initialize(start, destination);
 
@@ -25,12 +25,12 @@ public class Path {
                 node.setUsed(true);
                 this.getNextShortest(node);
             }
-            userInterface.updateDistance(this.destination.getDistanceToStart());
-            userInterface.updatePath(this.calcPath());
+            userController.updateDistance(this.destination.getDistanceToStart());
+            userController.updatePath(this.calcPath());
 
 
         } catch (NullPointerException e) {
-            userInterface.showError(e.getMessage());
+            userController.showError(e.getMessage());
         }
     }
 
