@@ -34,7 +34,7 @@ public class Path {
         }
     }
 
-    public void initialize( String start, String destination) {
+    public void initialize(String start, String destination) {
         ArrayList<Node> clonedNodes = Graph.cloneExistingNodes();
         this.clonedEdges = Graph.cloneExistingEdges(clonedNodes);
         for (Node clonedNode : clonedNodes) {
@@ -49,17 +49,16 @@ public class Path {
                 break;
             }
         }
-                this.remainingNodes = new ArrayList<>();
-                remainingNodes.add(this.start);
-                this.start.setPredecessor(null);
-                this.start.updateDistanceToStart(0);
+        this.remainingNodes = new ArrayList<>();
+        remainingNodes.add(this.start);
+        this.start.setPredecessor(null);
+        this.start.updateDistanceToStart(0);
 
 
-        }
+    }
 
 
-
-    public void getNextShortest(Node node){
+    public void getNextShortest(Node node) {
         for (Edge clonedEdge : this.clonedEdges) {
             if (node.equals(clonedEdge.getCityA())) {
                 Node neighbor = clonedEdge.getCityB();
@@ -76,7 +75,6 @@ public class Path {
     }
 
 
-
     public ArrayList<String> calcPath() {
         ArrayList<String> path = new ArrayList<>();
         Node routeNode = this.destination;
@@ -88,7 +86,8 @@ public class Path {
         path.add(0, routeNode.getCity());
         return path;
     }
-    public int getTotalDistance(){
+
+    public int getTotalDistance() {
         return this.destination.getDistanceToStart();
     }
 }

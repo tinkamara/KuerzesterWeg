@@ -16,11 +16,11 @@ public class UserController implements ActionListener {
     private UserInterface userInterface;
     private Path path;
 
-    public UserController(){
+    public UserController() {
 
     }
 
-    public UserController(NoDataFound noDataFound){
+    public UserController(NoDataFound noDataFound) {
 
         this.noDataFound = noDataFound;
     }
@@ -39,24 +39,13 @@ public class UserController implements ActionListener {
         this.path = new Path(userInterface.getSelectedStart(), userInterface.getSelectedDestination(), userInterface);
 
     }
-    public void savePath(File file){
-        try{
-        File checkedFile = checkFileName(file);
+
+    public void savePath(File file) {
+        try {
+            File checkedFile = checkFileName(file);
 
             FileWriter writer = new FileWriter(checkedFile);
-            int i = 0;
-            writer.write("Distanz;Ort;\nStart;");
-            for(String routePoint : path.calcPath()) {
-                i++;
-                if (i % 2 == 0) {
-                    writer.write(routePoint + ";");
-
-                } else {
-                    writer.write(routePoint + ";\n");
-                }
-            }
-            writer.write("\nGesamtstrecke;"+path.getTotalDistance()+" km;");
-            writer.close();
+            writeFile(writer);
         } catch (IOException notFound) {
             userInterface.showError(notFound.getMessage());
         }
@@ -64,13 +53,29 @@ public class UserController implements ActionListener {
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
     public File checkFileName(File file) throws IOException {
-        if(file.getName().toLowerCase().endsWith(".csv")){
+        if (file.getName().toLowerCase().endsWith(".csv")) {
             return file;
-        } else{
+        } else {
             File newFile = new File(file.getAbsolutePath() + ".csv");
             newFile.createNewFile();
             file.delete();
             return newFile;
         }
+    }
+
+    public void writeFile(FileWriter writer) throws IOException {
+        int i = 0;
+        writer.write("Distanz;Ort;\nStart;");
+        for (String routePoint : path.calcPath()) {
+            i++;
+            if (i % 2 == 0) {
+                writer.write(routePoint + ";");
+
+            } else {
+                writer.write(routePoint + ";\n");
+            }
+        }
+        writer.write("\nGesamtstrecke;" + path.getTotalDistance() + " km;");
+        writer.close();
     }
 }

@@ -1,6 +1,6 @@
 package DataAccessLayer;
 
-public class NoDataFound extends Throwable{
+public class NoDataFound extends Throwable {
 
     //message als Attribut für mögliche Erweiterung
 

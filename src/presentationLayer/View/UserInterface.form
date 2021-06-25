@@ -114,7 +114,7 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="9c7b3" class="javax.swing.JTextPane" binding="PathTextPane">
+          <component id="9c7b3" class="javax.swing.JTextPane" binding="pathTextPane">
             <constraints/>
             <properties>
               <background color="-986881"/>

@@ -12,19 +12,20 @@ public class Node implements Cloneable {
     private int distanceToNeighbor = MAX_VALUE;
     private boolean used = false;
 
-    private Node( String city ){
-    this.city = city;
-    this.predecessor = null;
-    existingNodes.add(this);
+    private Node(String city) {
+        this.city = city;
+        this.predecessor = null;
+        existingNodes.add(this);
     }
-    private Node ( Node node){
+
+    private Node(Node node) {
         this.city = node.getCity();
         this.predecessor = node.predecessor;
         this.distanceToStart = node.getDistanceToStart();
     }
 
 
-    public static Node getNode(String city ) {
+    public static Node getNode(String city) {
         Node retNode = null;
 
         for (Node exists : existingNodes) {
@@ -35,27 +36,27 @@ public class Node implements Cloneable {
         if (retNode == null) {
             retNode = new Node(city);
         }
-            return retNode;
+        return retNode;
 
     }
 
 
-
-    public static ArrayList<Node> getExistingNodes(){
+    public static ArrayList<Node> getExistingNodes() {
 
         return existingNodes;
     }
+
     public String getCity() {
 
         return city;
     }
 
-    public void updateDistanceToStart(int change){
+    public void updateDistanceToStart(int change) {
 
         distanceToStart = change;
     }
 
-    public int getDistanceToStart(){
+    public int getDistanceToStart() {
 
         return distanceToStart;
     }

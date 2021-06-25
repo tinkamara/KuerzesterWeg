@@ -7,8 +7,7 @@ import DataAccessLayer.NoDataFound;
 public class DataController {
 
 
-
-    public DataController() throws NoDataFound{
+    public DataController() throws NoDataFound {
         Graph.init(DataAccess.read("routes"));
     }
 
